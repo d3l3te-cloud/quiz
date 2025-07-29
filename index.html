@@ -4,29 +4,124 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quiz App</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b1120;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #timer {
+      display: flex;
+      align-items: center;
+      margin: 20px;
+      font-size: 24px;
+    }
+
+    #timer img {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+
+    #quiz-box {
+      background: #111827;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+      max-width: 700px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .option {
+      padding: 15px;
+      font-size: 18px;
+      border: 2px solid #00ffe0;
+      border-radius: 10px;
+      background-color: #1f2937;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .option:hover {
+      background-color: #374151;
+    }
+
+    .option.selected {
+      background-color: #4b5563;
+      color: #fff;
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    .controls button {
+      font-size: 18px;
+      padding: 12px 24px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #2563eb;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .controls button:hover {
+      background-color: #1e40af;
+    }
+
+    .restart-btn {
+      font-size: 18px;
+      padding: 12px 24px;
+      background-color: #16a34a;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 20px;
+    }
+
+    .restart-btn:hover {
+      background-color: #15803d;
+    }
+  </style>
 </head>
 <body>
-  <div class="quiz-container">
-    <div class="header">
-      <div class="timer" id="timer">
-        <img src="clock.png" alt="clock" style="height: 20px; vertical-align: middle; margin-right: 6px;">
-        <span id="timer-text">0s</span>
-      </div>
+
+  <div id="timer">
+    <img src="https://cdn-icons-png.flaticon.com/512/3524/3524388.png" alt="clock" />
+    <span id="timer-text">0s</span>
+  </div>
+
+  <div id="quiz-box">
+    <h2 id="question-text"></h2>
+    <div class="options" id="options-container"></div>
+    <div class="controls">
+      <button onclick="previousQuestion()" id="prevBtn">⬅ Previous</button>
+      <button onclick="nextQuestion()" id="nextBtn">Next ➡</button>
+      <button onclick="submitQuiz()" id="submitBtn" style="display: none;">✅ Submit</button>
     </div>
-
-    <div class="question-box" id="quiz-box">
-      <h2 id="question-text"></h2>
-
-      <div class="options" id="options-container"></div>
-
-      <div class="controls">
-        <button onclick="previousQuestion()" id="prevBtn">⬅ Previous</button>
-        <button onclick="nextQuestion()" id="nextBtn">Next ➡</button>
-        <button onclick="submitQuiz()" id="submitBtn" style="display: none;">✅ Submit</button>
-      </div>
-      <p id="resultText"></p>
-    </div>
+    <p id="resultText"></p>
   </div>
 
   <script>
@@ -63,8 +158,9 @@
     }
 
     function showQuestion() {
-      const q = questions[currentQuestionIndex];
+      document.getElementById("timer").style.display = "flex";
 
+      const q = questions[currentQuestionIndex];
       document.getElementById("question-text").innerHTML = q.question;
 
       const optionsContainer = document.getElementById("options-container");
@@ -84,7 +180,6 @@
       document.getElementById("resultText").innerText = "";
       document.getElementById("timer-text").textContent = `${timers[currentQuestionIndex]}s`;
 
-      // Control buttons
       document.getElementById("prevBtn").style.display = currentQuestionIndex > 0 ? "inline-block" : "none";
       document.getElementById("nextBtn").style.display = currentQuestionIndex < questions.length - 1 ? "inline-block" : "none";
       document.getElementById("submitBtn").style.display = currentQuestionIndex === questions.length - 1 ? "inline-block" : "none";
@@ -122,9 +217,13 @@
         }
       });
 
+      const totalTime = timers.reduce((sum, t) => sum + t, 0);
+      document.getElementById("timer").style.display = "none";
+
       document.getElementById("quiz-box").innerHTML = `
         <h2>🎉 Quiz Completed!</h2>
         <p>You answered <strong>${correctCount} / ${questions.length}</strong> correctly.</p>
+        <p>Total Time Spent: <strong>${totalTime} seconds</strong></p>
         <button onclick="restartQuiz()" class="restart-btn">🔁 Restart Quiz</button>
       `;
     }
@@ -134,6 +233,8 @@
       selectedAnswers = new Array(questions.length).fill(null);
       timers = new Array(questions.length).fill(0);
       correctCount = 0;
+
+      document.getElementById("timer").style.display = "flex";
       document.getElementById("quiz-box").innerHTML = `
         <h2 id="question-text"></h2>
         <div class="options" id="options-container"></div>

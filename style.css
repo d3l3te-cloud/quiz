@@ -45,11 +45,17 @@ body {
 }
 
 .option:hover {
-  background-color: #2563eb;
+  background-color: #475569;
 }
 
 .option.selected {
-  background-color: #22c55e;
+  background-color: #9ca3af;
+  color: black;
+}
+
+.option:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .controls {
@@ -72,4 +78,18 @@ body {
 .controls p {
   font-size: 18px;
   margin-left: 15px;
+}
+
+.restart-btn {
+  margin-top: 20px;
+  padding: 10px 30px;
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.restart-btn:hover {
+  background-color: #16a34a;
 }

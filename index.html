@@ -19,7 +19,7 @@
       <div class="options" id="options-container"></div>
 
       <div class="controls">
-        <button onclick="submitAnswer()">Submit</button>
+        <button onclick="backAnswer()">Previous</button>
         <button onclick="nextQuestion()">Next</button>
         <p id="resultText"></p>
       </div>
@@ -124,6 +124,20 @@
         `;
       }
     }
+    function backAnswer() {
+      currentQuestionIndex+-;
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        
+        document.getElementById("quiz-box").innerHTML = `
+          <h2>🎉 Quiz Completed!</h2>
+          <p>You answered ${correctCount} out of ${questions.length} questions correctly.</p>
+          <button onclick="restartQuiz()" class="restart-btn">Restart Quiz</button>
+        `;
+      }
+    }
+      
 
     function restartQuiz() {
       currentQuestionIndex = 0;

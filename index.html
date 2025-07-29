@@ -9,7 +9,10 @@
 <body>
   <div class="quiz-container">
     <div class="header">
-      <div class="timer" id="timer">Time: 0s</div>
+      <div class="timer" id="timer">
+        <img src="clock.png" alt="clock" style="height: 20px; vertical-align: middle; margin-right: 6px;">
+        <span id="timer-text">0s</span>
+      </div>
     </div>
 
     <div class="question-box" id="quiz-box">
@@ -55,12 +58,8 @@
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
         timers[currentQuestionIndex]++;
-        updateTimerDisplay();
+        document.getElementById("timer-text").textContent = `${timers[currentQuestionIndex]}s`;
       }, 1000);
-    }
-
-    function updateTimerDisplay() {
-      document.getElementById("timer").textContent = `Time on this question: ${timers[currentQuestionIndex]}s`;
     }
 
     function showQuestion() {
@@ -83,13 +82,14 @@
       });
 
       document.getElementById("resultText").innerText = "";
-      updateTimerDisplay();
-      startTimer();
+      document.getElementById("timer-text").textContent = `${timers[currentQuestionIndex]}s`;
 
-      // Show/hide buttons
+      // Control buttons
       document.getElementById("prevBtn").style.display = currentQuestionIndex > 0 ? "inline-block" : "none";
       document.getElementById("nextBtn").style.display = currentQuestionIndex < questions.length - 1 ? "inline-block" : "none";
       document.getElementById("submitBtn").style.display = currentQuestionIndex === questions.length - 1 ? "inline-block" : "none";
+
+      startTimer();
     }
 
     function selectOption(button, value) {
@@ -122,12 +122,9 @@
         }
       });
 
-      const totalTime = timers.reduce((a, b) => a + b, 0);
-
       document.getElementById("quiz-box").innerHTML = `
         <h2>🎉 Quiz Completed!</h2>
         <p>You answered <strong>${correctCount} / ${questions.length}</strong> correctly.</p>
-        <p>Total Time Spent: <strong>${totalTime} seconds</strong></p>
         <button onclick="restartQuiz()" class="restart-btn">🔁 Restart Quiz</button>
       `;
     }
@@ -137,10 +134,20 @@
       selectedAnswers = new Array(questions.length).fill(null);
       timers = new Array(questions.length).fill(0);
       correctCount = 0;
+      document.getElementById("quiz-box").innerHTML = `
+        <h2 id="question-text"></h2>
+        <div class="options" id="options-container"></div>
+        <div class="controls">
+          <button onclick="previousQuestion()" id="prevBtn">⬅ Previous</button>
+          <button onclick="nextQuestion()" id="nextBtn">Next ➡</button>
+          <button onclick="submitQuiz()" id="submitBtn" style="display: none;">✅ Submit</button>
+        </div>
+        <p id="resultText"></p>
+      `;
       showQuestion();
     }
 
-    // Start quiz
+    // Initialize
     showQuestion();
   </script>
 </body>

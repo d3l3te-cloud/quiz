@@ -1,121 +1,115 @@
 body {
   margin: 0;
-  padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0f172a;
+  background-color: #0b1120;
   color: white;
-}
-
-.quiz-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #1e293b;
-  border-radius: 12px;
-  box-shadow: 0 0 30px #0ea5e9;
-}
-
-.header {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  font-size: 22px;
-  margin-bottom: 15px;
+  min-height: 100vh;
 }
 
-.timer {
-  background-color: #0ea5e9;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 20px;
-  color: white;
-  box-shadow: 0 0 8px #0ea5e9;
-  transition: all 0.3s ease-in-out;
-}
-
-.question-box h2 {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 30px 0 20px;
-  text-align: left;
-}
-
-.options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
-.option {
-  background-color: #334155;
-  padding: 18px;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-.option:hover {
-  background-color: #475569;
-}
-
-.option.selected {
-  background-color: #9ca3af;
-  color: black;
-}
-
-.controls {
-  margin-top: 30px;
+#timer {
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
+  align-items: center;
+  margin: 20px;
+  font-size: 24px;
 }
 
-.controls button {
-  flex: 1;
-  min-width: 100px;
-  padding: 15px;
-  background-color: #0ea5e9;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease;
+#timer img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
 }
 
-.controls button:hover {
-  background-color: #0284c7;
-}
-
-#resultText {
-  font-size: 18px;
-  margin-top: 20px;
+#quiz-box {
+  background: #111827;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+  max-width: 750px;
   text-align: center;
 }
 
-.restart-btn {
-  margin-top: 30px;
-  padding: 14px 30px;
-  background-color: #22c55e;
-  color: white;
-  border: none;
-  border-radius: 10px;
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.option {
+  padding: 15px;
   font-size: 18px;
-  font-weight: bold;
+  border: 2px solid #00ffe0;
+  border-radius: 10px;
+  background-color: #1f2937;
   cursor: pointer;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  transition: background 0.3s ease;
+  transition: 0.3s;
+}
+
+.option:hover {
+  background-color: #374151;
+}
+
+.option.selected {
+  background-color: #4b5563;
+  color: #fff;
+}
+
+.controls {
+  margin-top: 20px;
+}
+
+.controls button,
+.clear-btn,
+.restart-btn {
+  font-size: 18px;
+  padding: 12px 24px;
+  margin: 8px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.controls button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.controls button:hover {
+  background-color: #1e40af;
+}
+
+.clear-btn {
+  background-color: #f59e0b;
+  color: black;
+}
+
+.clear-btn:hover {
+  background-color: #d97706;
+}
+
+.restart-btn {
+  background-color: #16a34a;
+  color: white;
 }
 
 .restart-btn:hover {
-  background-color: #16a34a;
+  background-color: #15803d;
+}
+
+.result-analysis {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.result-analysis p {
+  margin: 6px 0;
 }

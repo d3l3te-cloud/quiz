@@ -34,7 +34,7 @@
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
-      max-width: 700px;
+      max-width: 750px;
       text-align: center;
     }
 
@@ -73,49 +73,68 @@
       margin-top: 20px;
     }
 
-    .controls button {
+    .controls button,
+    .clear-btn,
+    .restart-btn {
       font-size: 18px;
       padding: 12px 24px;
-      margin: 0 10px;
+      margin: 8px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .controls button {
       background-color: #2563eb;
       color: white;
-      transition: 0.3s;
     }
 
     .controls button:hover {
       background-color: #1e40af;
     }
 
+    .clear-btn {
+      background-color: #f59e0b;
+      color: black;
+    }
+
+    .clear-btn:hover {
+      background-color: #d97706;
+    }
+
     .restart-btn {
-      font-size: 18px;
-      padding: 12px 24px;
       background-color: #16a34a;
-      border: none;
-      border-radius: 8px;
       color: white;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-top: 20px;
     }
 
     .restart-btn:hover {
       background-color: #15803d;
+    }
+
+    .result-analysis {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .result-analysis p {
+      margin: 6px 0;
     }
   </style>
 </head>
 <body>
 
   <div id="timer">
-    <img src="https://cdn-icons-png.flaticon.com/512/3524/3524388.png" alt="clock" />
+    <img src="clock.png" alt="clock" />
     <span id="timer-text">0s</span>
   </div>
 
   <div id="quiz-box">
     <h2 id="question-text"></h2>
     <div class="options" id="options-container"></div>
+    
+    <button class="clear-btn" onclick="clearSelection()">🧹 Clear Selection</button>
+
     <div class="controls">
       <button onclick="previousQuestion()" id="prevBtn">⬅ Previous</button>
       <button onclick="nextQuestion()" id="nextBtn">Next ➡</button>
@@ -193,6 +212,11 @@
       selectedAnswers[currentQuestionIndex] = value;
     }
 
+    function clearSelection() {
+      selectedAnswers[currentQuestionIndex] = null;
+      showQuestion();
+    }
+
     function nextQuestion() {
       if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
@@ -210,22 +234,38 @@
     function submitQuiz() {
       clearInterval(timerInterval);
       correctCount = 0;
-
-      questions.forEach((q, i) => {
-        if (selectedAnswers[i] === q.correct) {
-          correctCount++;
-        }
-      });
-
       const totalTime = timers.reduce((sum, t) => sum + t, 0);
-      document.getElementById("timer").style.display = "none";
 
-      document.getElementById("quiz-box").innerHTML = `
+      const resultHTML = `
         <h2>🎉 Quiz Completed!</h2>
-        <p>You answered <strong>${correctCount} / ${questions.length}</strong> correctly.</p>
+        <p>You answered <strong>${getCorrectCount()} / ${questions.length}</strong> correctly.</p>
         <p>Total Time Spent: <strong>${totalTime} seconds</strong></p>
         <button onclick="restartQuiz()" class="restart-btn">🔁 Restart Quiz</button>
+        <div class="result-analysis">
+          <h3>📊 Question Analysis:</h3>
+          ${questions.map((q, i) => {
+            const isCorrect = selectedAnswers[i] === q.correct;
+            const color = isCorrect ? "#16a34a" : "#dc2626";
+            return `
+              <p>
+                <strong>Q${i + 1}:</strong> ${q.question}<br/>
+                <span style="color:${color};">
+                  ${isCorrect ? "✔ Correct" : "✘ Incorrect"}
+                </span> | Time: ${timers[i]}s | 
+                Selected: ${selectedAnswers[i] ?? "None"} | Answer: ${q.correct}
+              </p>
+            `;
+          }).join("")}
+        </div>
       `;
+
+      document.getElementById("quiz-box").innerHTML = resultHTML;
+      document.getElementById("timer").style.display = "none";
+    }
+
+    function getCorrectCount() {
+      return questions.reduce((count, q, i) =>
+        selectedAnswers[i] === q.correct ? count + 1 : count, 0);
     }
 
     function restartQuiz() {
@@ -238,6 +278,7 @@
       document.getElementById("quiz-box").innerHTML = `
         <h2 id="question-text"></h2>
         <div class="options" id="options-container"></div>
+        <button class="clear-btn" onclick="clearSelection()">Clear</button>
         <div class="controls">
           <button onclick="previousQuestion()" id="prevBtn">⬅ Previous</button>
           <button onclick="nextQuestion()" id="nextBtn">Next ➡</button>

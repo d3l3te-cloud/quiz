@@ -13,7 +13,7 @@
       <div class="timer" id="timer">Time: 0s</div>
     </div>
 
-    <div class="question-box">
+    <div class="question-box" id="quiz-box">
       <h2 id="question-text"></h2>
 
       <div class="options" id="options-container"></div>
@@ -48,9 +48,13 @@
     let currentQuestionIndex = 0;
     let selectedOption = null;
     let timeElapsed = 0;
+    let timer;
+    let correctCount = 0;
 
     function startTimer() {
-      setInterval(() => {
+      timeElapsed = 0;
+      clearInterval(timer);
+      timer = setInterval(() => {
         timeElapsed++;
         document.getElementById("timer").textContent = `Time: ${timeElapsed}s`;
       }, 1000);
@@ -59,6 +63,7 @@
     function showQuestion() {
       const currentQuestion = questions[currentQuestionIndex];
       document.getElementById("question-text").innerHTML = currentQuestion.question;
+
       const optionsContainer = document.getElementById("options-container");
       optionsContainer.innerHTML = "";
 
@@ -72,6 +77,7 @@
 
       document.getElementById("resultText").innerText = "";
       selectedOption = null;
+      startTimer();
     }
 
     function selectOption(button) {
@@ -93,10 +99,16 @@
       if (selectedOption === currentQuestion.correct) {
         result.innerText = "✅ Correct!";
         result.style.color = "lime";
+        correctCount++;
       } else {
         result.innerText = `❌ Wrong! Correct Answer: ${currentQuestion.correct}`;
         result.style.color = "red";
       }
+
+      clearInterval(timer);
+
+      // Disable buttons after submission
+      document.querySelectorAll('.option').forEach(b => b.disabled = true);
     }
 
     function nextQuestion() {
@@ -104,13 +116,33 @@
       if (currentQuestionIndex < questions.length) {
         showQuestion();
       } else {
-        document.querySelector('.question-box').innerHTML = `<h2>🎉 Quiz Completed in ${timeElapsed}s!</h2>`;
+        clearInterval(timer);
+        document.getElementById("quiz-box").innerHTML = `
+          <h2>🎉 Quiz Completed!</h2>
+          <p>You answered ${correctCount} out of ${questions.length} questions correctly.</p>
+          <button onclick="restartQuiz()" class="restart-btn">Restart Quiz</button>
+        `;
       }
     }
 
-    // Start quiz
+    function restartQuiz() {
+      currentQuestionIndex = 0;
+      correctCount = 0;
+      selectedOption = null;
+      document.getElementById("quiz-box").innerHTML = `
+        <h2 id="question-text"></h2>
+        <div class="options" id="options-container"></div>
+        <div class="controls">
+          <button onclick="submitAnswer()">Submit</button>
+          <button onclick="nextQuestion()">Next</button>
+          <p id="resultText"></p>
+        </div>
+      `;
+      showQuestion();
+    }
+
+    // Start quiz on load
     showQuestion();
-    startTimer();
   </script>
 </body>
 </html>

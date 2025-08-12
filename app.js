@@ -166,7 +166,7 @@ if (loginForm) {
                 window.location.href = "dashboard.html";
             }
         } catch (err) {
-            showMessage(err.message, loginMessage);
+            showMessage("Wrong Email or Password! Try Again!", loginMessage);
         }
     });
 }
@@ -216,4 +216,5 @@ if (signoutBtn) {
         await signOut(auth);
         window.location.href = "index.html";
     });
+
 }

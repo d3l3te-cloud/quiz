@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quizzo - Sign Up / Sign In</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+</head>
+<body>
+    <!-- The main container for the entire animated card -->
+    <div class="container" id="container">
+        <!-- Sign Up Form Panel -->
+        <div class="form-container sign-up-container">
+            <form id="signup-form" class="form">
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a href="#" class="social" id="google-signin-signup">
+                        <i class="fab fa-google"></i>
+                    </a>
+                </div>
+                <span>or use your email for registration</span>
+                <input id="signup-email" type="email" placeholder="Email" required />
+                <input id="signup-password" type="password" placeholder="Password (min 6 chars)" required />
+                <div class="message-box" id="signup-message"></div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+        </div>
+
+        <!-- Sign In Form Panel -->
+        <div class="form-container sign-in-container">
+            <form id="login-form" class="form">
+                <h1>Sign In</h1>
+                <div class="social-container">
+                    <a href="#" class="social" id="google-signin-login">
+                        <i class="fab fa-google"></i>
+                    </a>
+                </div>
+                <span>or use your account</span>
+                <input id="login-email" type="email" placeholder="Email" required />
+                <input id="login-password" type="password" placeholder="Password" required />
+                <a href="#">Forgot your password?</a>
+                <div class="message-box" id="login-message"></div>
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+        </div>
+
+        <!-- Animated Overlay Panel -->
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us, please login with your personal info</p>
+                    <button class="btn ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Welcome in Quizzo!</h1>
+                    <p>Enter your personal details to begin your journey with us</p>
+                    <button class="btn ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- User Info and Sign Out -->
+        <div id="user-info" style="display:none;" class="user-info">
+            <p>You are signed in as: <span id="user-details"></span></p>
+            <p>Your User ID is: <span id="user-id"></span></p>
+            <button id="signout" class="btn">Sign Out</button>
+        </div>
+
+        <div id="messages" aria-live="polite"></div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

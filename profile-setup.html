@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quizzo - Complete Your Profile</title>
+    <link rel="stylesheet" href="profile-setup.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- The main container for the profile card -->
+    <div class="profile-card">
+        <h1>Complete Your Profile</h1>
+        <form id="profile-form">
+            <input type="text" id="first-name" placeholder="First Name" required />
+            <input type="text" id="last-name" placeholder="Last Name" required />
+            <select id="class-select" required>
+                <option value="">Select Class</option>
+                <option value="10">Standard 10</option>
+                <option value="11">Standard 11</option>
+                <option value="12">Standard 12</option>
+            </select>
+            <button type="submit" class="btn">Save Profile</button>
+        </form>
+        <div id="message" class="message-box" aria-live="polite"></div>
+    </div>
+    <script type="module" src="profile-setup.js"></script>
+</body>
+</html>

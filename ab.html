@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+
+  <title>Quizzo PYQ</title>
+  <link rel="shortcut icon" href="assignment.png" type="image/x-icon">
+  <link rel="stylesheet" href="ab.css" />
+</head>
+
+<body>
+  <div class="quiz-container" id="quizMain">
+    <header>
+      <div class="quiz-header">
+        <span id="questionCount">Q1</span>
+        <span class="timer" id="timer">⏱ 00:00</span>
+      </div>
+      <h2 class="quiz-title">•PYQ MATHS </h2>
+    </header>
+
+    <div id="questionGrid" class="question-grid"></div>
+
+    <main>
+      <div id="questionImageContainer" class="image-container">
+
+      </div>
+      <div class="options" id="options"></div>
+      <div id="result" class="result"></div>
+      <div class="controls">
+        <div class="nav-row">
+          <button id="prevBtn">⏪Previous</button>
+        </div>
+        <div class="action-row">
+          <button id="checkBtn">
+            <span class="icon">✔</span>
+            <span class="label">Check</span>
+          </button>
+          <button id="markReviewBtn">
+            <span class="icon">🔖</span>
+            <span class="label">Mark for Review</span>
+          </button>
+          <button id="clearBtn">
+            <span class="icon">🧹</span>
+            <span class="label">Clear the Option</span>
+          </button>
+        </div>
+        <div class="nav-row">
+          <button id="nextBtn">Next⏩</button>
+        </div>
+      </div>
+
+
+    </main>
+  </div>
+
+  <!-- ✅ Submit Page -->
+  <div id="submitPage" style="display: none; text-align: center;">
+    <h2>Want to Submit?</h2>
+    <p>You have attempted all questions. Ready to see your result?</p>
+    <button onclick="showSummary()" style="margin-right: 1rem;">✅ Submit</button>
+    <button onclick="goBackFromSubmit()">⬅ Go Back</button>
+  </div>
+
+  <!-- ✅ Summary Page -->
+  <div id="summary" style="display: none;">
+    <h2>Quiz Summary</h2>
+    <p id="finalScore"></p>
+    <div id="summaryContent"></div>
+    <button class="retry-btn" onclick="retryQuiz()">Retry Quiz</button>
+
+  </div>
+  <!-- Modal for enlarged image -->
+  <div id="imageModal" class="image-modal">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="enlargedImg">
+  </div>
+
+
+  <script type="module" src="quiz-firebase.js"></script>
+  <script src="ab.js"></script>
+
+</body>
+
+</html>

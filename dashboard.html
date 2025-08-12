@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dashboard - Quizzo</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <!-- Poppins Font and Font Awesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+</head>
+<body>
+    <main class="dashboard-container">
+        <header class="dash-header">
+            <h1 id="welcome-message"></h1>
+            <button id="signout" class="btn outline">Sign out</button>
+        </header>
+
+        <section class="dashboard-content">
+            <!-- Left panel for starting a quiz -->
+            <div class="quiz-panel">
+                <h2 class="section-title">Choose a Subject to Start a Quiz</h2>
+                <div id="subject-cards" class="subject-cards-container">
+                    <!-- Subject cards will be dynamically added here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Right panel for previous records -->
+            <div class="records-panel">
+                <div class="records-header">
+                    <h2 class="section-title">Your Previous Records</h2>
+                    <button id="view-records-btn" class="btn">View Records</button>
+                </div>
+                <div id="records-content" class="records-content" style="display: none;">
+                    <div id="no-data" class="muted-message">No attempts yet — take the quiz to record a score.</div>
+                    <div class="table-scroll-wrapper">
+                        <table id="results-table" class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Score</th>
+                                    <th>Total Qs</th>
+                                    <th>Time</th>
+                                    <th>Date</th>
+                                    <th>Quiz Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="results-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>
